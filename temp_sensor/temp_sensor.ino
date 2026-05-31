@@ -3,7 +3,7 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 const int sensorPin = A0;
 
-const float VCC = 4.6;          // measured Arduino voltage
+const float VCC = 4.76;          // measured Arduino voltage
 const float R_FIXED = 10000.0;  // 10k resistor
 
 const float R0 = 10000.0;       // thermistor resistance at 25C
@@ -12,6 +12,8 @@ const float BETA = 3950.0;      // common value, hope it's good
 
 void setup() {
   Serial.begin(9600);
+  lcd.begin(16, 2);
+  lcd.print("Thermistor");
 }
 
 void loop() {
@@ -40,5 +42,17 @@ void loop() {
 
   Serial.println(" C ");
 
-  delay(500);
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
+  lcd.print("temp: ");
+  lcd.print(tempC);
+  lcd.print(" C");
+
+  lcd.setCursor(0, 1);
+  lcd.print("ADC: ");
+  lcd.print(adc);
+
+
+  delay(1000);
 }
